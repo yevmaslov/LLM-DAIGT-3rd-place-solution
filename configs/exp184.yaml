@@ -1,0 +1,108 @@
+backbone_config_path: /notebooks/models/exp184
+best_model_path: /notebooks/models/exp184/models/fold_0_42_best.pth
+checkpoint_path: /notebooks/models/exp184/chkp/fold_0_42_chkp.pth
+config_path: /notebooks/models/exp184/config.yaml
+criterion:
+  criterion_type: BCEWithLogitsLoss
+  mcrmse_loss:
+    weights:
+    - 0.5
+    - 0.5
+  mse_loss:
+    reduction: mean
+  rmse_loss:
+    eps: 1.0e-09
+    reduction: mean
+  smooth_l1_loss:
+    beta: 0.1
+    reduction: mean
+data_dir: /notebooks/data
+dataset:
+  train_path: 'data/train_dataset_v2.parquet'
+  valid_path: 'data/valid_dataset_v1.parquet'
+  bucket_batch_sampler:
+    bucket_size: 400
+    noise_factor: 0.2
+  folds: true
+  labels:
+  - generated
+  max_length: 256
+  sampler_type: StratifiedBatchSampler
+  train_batch_size: 48
+  train_sources:
+  - daigt
+  - persuade
+  - persuade_gpt
+  - persuade_humanized_1
+  - persuade_gpt_patially_rewritten
+  - persuade_gpt_patially_rewritten_05
+  - persuade_humanized_easy_1
+  - daigt_gpt_patially_rewritten
+  - llama-mistral-partially-r
+  - moth
+  - books
+  - neural-chat-7b
+  - nbroad
+  valid_batch_size: 48
+  valid_sources:
+  - none
+debug: false
+exp_name: exp184_seed42
+external_dir: /notebooks/data/external
+fold: 0
+interim_dir: /notebooks/data/interim
+log_path: /notebooks/models/exp184/logs/fold-0.log
+logger:
+  job_type: training
+  project: DAIGT-AIE
+  train_print_frequency: 20
+  use_wandb: true
+  valid_print_frequency: 20
+model:
+  architecture_type: CustomModel
+  attention_dropout: 0.1
+  backbone_type: microsoft/deberta-v3-large
+  dropout: 0.05
+  freeze_embeddings: false
+  freeze_n_layers: 0
+  gem_pooling:
+    eps: 1.0e-06
+    p: 3
+  gradient_checkpointing: false
+  load_embeddings: true
+  load_head: true
+  load_n_layers: 24
+  load_parts: false
+  pooling_type: MeanPooling
+  reinitialize_n_layers: 0
+  state_from_model: None
+models_dir: /notebooks/models
+optimizer:
+  beta1: 0.9
+  beta2: 0.999
+  decoder_lr: 2.0e-05
+  embeddings_lr: 2.0e-05
+  encoder_lr: 2.0e-05
+  eps: 1.0e-06
+  group_lr_multiplier: 1
+  n_groups: 1
+  weight_decay: 0.01
+processed_dir: /notebooks/data/processed
+raw_dir: /notebooks/data/raw
+run_dir: /notebooks/models/exp184
+run_id: exp184_seed42_fold0
+run_name: exp184_seed42_fold0
+scheduler:
+  cosine_schedule_with_warmup:
+    n_cycles: 0.5
+    n_warmup_steps: 0
+  type: cosine_schedule_with_warmup
+seed: 42
+tokenizer: null
+tokenizer_path: /notebooks/models/exp184/tokenizer
+training:
+  apex: true
+  epochs: 3
+  evaluate_n_times_per_epoch: 4
+  gradient_accumulation_steps: 1
+  max_grad_norm: 1000
